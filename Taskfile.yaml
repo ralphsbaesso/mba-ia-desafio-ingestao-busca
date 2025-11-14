@@ -1,0 +1,42 @@
+version: '3'
+
+tasks:
+  setup:
+    desc: Setup Python virtual environment
+    cmds:
+      - python -m venv venv
+      - ./venv/bin/pip install -r requirements.txt
+      - |
+        echo ""
+        echo "✓ Setup completo!"
+        echo "Execute o comando abaixo para ativar o ambiente virtual:"
+        echo ""
+        echo "  source venv/bin/activate"
+        echo ""
+        echo ""
+
+  up:
+    desc: Start PostgreSQL with pgvector
+    cmds:
+      - docker-compose up -d
+
+  down:
+    desc: Stop PostgreSQL with pgvector
+    cmds:
+      - docker-compose down
+
+  ingest:
+    desc: Run PDF ingestion pipeline
+    cmds:
+      - ./venv/bin/python src/ingest.py
+
+  chat:
+    desc: Run chat interface
+    deps: [up]
+    cmds:
+      - ./venv/bin/python src/chat.py
+
+  shell-venv:
+    desc: Start a shell with venv activated
+    cmds:
+      - bash -c "source venv/bin/activate && exec $SHELL"
