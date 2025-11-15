@@ -18,12 +18,12 @@ tasks:
   up:
     desc: Start PostgreSQL with pgvector
     cmds:
-      - docker-compose up -d
+      - docker compose up -d
 
   down:
     desc: Stop PostgreSQL with pgvector
     cmds:
-      - docker-compose down
+      - docker compose down
 
   ingest:
     desc: Run PDF ingestion pipeline
